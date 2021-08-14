@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "dd89c575-a80d-4ab9-9926-e16f6a41f981",
+		"name": "REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Zamestnanci",
+			"item": [
+				{
+					"name": "List všetkých zamestnancov",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:44332/api/employees",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44332",
+							"path": [
+								"api",
+								"employees"
+							]
+						},
+						"description": "GET request dostane list všetkých zamestnancov a ich parametre."
+					},
+					"response": []
+				},
+				{
+					"name": "Pridať zamestnanca",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Mgr\",\r\n    \"name\": \"Ivana\",\r\n    \"surname\": \"Kabelová\",\r\n    \"phone\": \"+421 914 584 294\",\r\n    \"email\": \"ivan.kabela@gmail.com\",\r\n    \"manager\": 0,\r\n    \"code\": \"F_001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44332/api/employees",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44332",
+							"path": [
+								"api",
+								"employees"
+							]
+						},
+						"description": "POST request pridá nového zamestnanca s automaticky vygenerovaným ID - tento parameter je pri spracovaní requestu ignorovaný.\n\nTitul, telefón, email a kód môžu mať nulové hodnoty. Ak je kód dodaný, musí existovať uzol s daným kódom.\n\nPole \"manager\" hovorí o tom, či je zamestnanec vedúci daného uzlu, alebo tam iba pracuje - 0 je ekvivalent hodnoty FALSE a 1 TRUE."
+					},
+					"response": []
+				},
+				{
+					"name": "Aktualizovať zamestnanca",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"Mgr\",\r\n    \"name\": \"Ivana\",\r\n    \"surname\": \"Patyková\",\r\n    \"phone\": \"+421 914 584 294\",\r\n    \"email\": \"mrkvajozka@gmail.com\",\r\n    \"manager\": false,\r\n    \"code\": \"F_001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44332/api/employees/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44332",
+							"path": [
+								"api",
+								"employees",
+								"1"
+							]
+						},
+						"description": "PUT request plne aktualizuje zamestnanca. Je nutné dodať všetky parametre, vrátane id, ktoré sa musí zhodovať s id v ceste.\n\nCesta `api/employees/{id}`"
+					},
+					"response": []
+				},
+				{
+					"name": "Patchnúť zamestnanca",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"D_002\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44332/api/employees/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44332",
+							"path": [
+								"api",
+								"employees",
+								"1"
+							]
+						},
+						"description": "PATCH request čiastočne aktualizuje zamestnanca. Aktualizujú sa len nenulové parametre dodané v requeste. Id v requeste je ignorované.\n\nCesta `api/employees/{id}`"
+					},
+					"response": []
+				},
+				{
+					"name": "Odstrániť zamestnanca",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44332/api/employees/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44332",
+							"path": [
+								"api",
+								"employees",
+								"1"
+							]
+						},
+						"description": "DELETE request odstráni zamestnanca s daným ID z databázy.\n\nCesta: `api/employees/{id}`"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Uzly",
+			"item": [
+				{
+					"name": "List všetkých uzlov",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44332/api/nodes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44332",
+							"path": [
+								"api",
+								"nodes"
+							]
+						},
+						"description": "Dostane list všetkých uzlov tak, ako sú v databáze."
+					},
+					"response": []
+				},
+				{
+					"name": "Pridať uzol",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Agromrkva s.r.o.\",\r\n    \"code\": \"F_001\",\r\n    \"parentCode\": \"P_007\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44332/api/nodes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44332",
+							"path": [
+								"api",
+								"nodes"
+							]
+						},
+						"description": "Pridá uzol s menom, kódom a kódom rodiča.\n\nV prípade pridania prvého uzlu pôjde o firmu bez kódu rodiča - bude ignorovaný.\n\nKódy musia byť navzájom unikátne medzi všetkými uzlami.\n\nId sa spracováva automaticky systémom - v requeste je ignorované."
+					},
+					"response": []
+				},
+				{
+					"name": "Aktualizovať uzol",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Agrozelenina s.r.o.\",\r\n    \"code\": \"F_001\",\r\n    \"parentCode\": \"P_007\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44332/api/nodes/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44332",
+							"path": [
+								"api",
+								"nodes",
+								"1"
+							]
+						},
+						"description": "PUT request plne aktualizuje uzol. Je nutné dodať všetky parametre, vrátane id, ktoré sa musí zhodovať s id v ceste.\n\nAk ide of firmu, kód rodiča nemusí byť prítomný, nie je možné ho zmeniť a bude ignorovaný.\n\nCesta `api/nodes/{id}`"
+					},
+					"response": []
+				},
+				{
+					"name": "Patchnúť uzol",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"D_002\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44332/api/nodes/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44332",
+							"path": [
+								"api",
+								"nodes",
+								"1"
+							]
+						},
+						"description": "PATCH request čiastočne aktualizuje uzol. Aktualizujú sa len nenulové parametre dodané v requeste. Id v requeste je ignorované.\n\nCesta `api/nodes/{id}`"
+					},
+					"response": []
+				},
+				{
+					"name": "Odstrániť uzol",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44332/api/nodes/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44332",
+							"path": [
+								"api",
+								"nodes",
+								"1"
+							]
+						},
+						"description": "DELETE request odstráni uzol s daným id a všetky jeho poduzly rekurzívne.\n\nCesta `api/nodes/{id}`"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
